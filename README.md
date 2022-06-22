@@ -6,14 +6,14 @@ Golang service that provides fake route points via kafka.
 
 Within kafka, wait for a message in a test topic
 ```bash
-	kafka-console-consumer --bootstrap-server=localhost:9092 --topic=readtest
+kafka-console-consumer --bootstrap-server=localhost:9092 --topic=readtest
 ```
 
-
+On a Go function
 ```golang
-	producer := kafka.NewKafkaProducer()
-	kafka.Publish("My Message", "readtest", producer)
-```golang
+producer := kafka.NewKafkaProducer()
+kafka.Publish("My Message", "readtest", producer)
+```
 
 
 
