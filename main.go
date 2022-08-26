@@ -6,6 +6,7 @@ import (
 	"log"
 	"fmt"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
+	producer "github.com/adriangrahl/points-simulator/application/kafka"
 )
 
 func init() {
@@ -18,14 +19,22 @@ func init() {
 func main() {
 	msgChan := make(chan *ckafka.Message)
 	consumer := kafka.NewKafkaConsumer(msgChan)
-
 	go consumer.Consume()
-
 	for msg := range msgChan {
 		fmt.Println(string(msg.Value))
+		go  producer.Produce(msg)
 	}
 
+	////////////////consumer test///////////////
+	// msgChan := make(chan *ckafka.Message)
+	// consumer := kafka.NewKafkaConsumer(msgChan)
+	// go consumer.Consume()
+	// for msg := range msgChan {
+	// 	fmt.Println(string(msg.Value))
+	// }
 
+
+	////////////////producer test///////////////
 	// producer := kafka.NewKafkaProducer()
 	// kafka.Publish("ola", "readtest", producer)
 
@@ -33,6 +42,7 @@ func main() {
 		_ = 1
 	}
 
+	////////////////get route point test///////////////
 	// "fmt"
 	// route2 "github.com/adriangrahl/points-simulator/application/route"
 
